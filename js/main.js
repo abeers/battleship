@@ -6,13 +6,28 @@ const AI_NAME = 'Computer'
 /*----- state variables -----*/
 let isPlacing = true
 let mainPlayer
+let game
 
 /*----- cached elements  -----*/
 const mainBoard = document.querySelector('#main-board')
+const sideBoard = document.querySelector('#side-board')
+const shipCenter = document.querySelector('#ship-center')
 const newGameButton = document.querySelector('#new-game')
+const finishPlacementButton = document.querySelector('#finish-placement')
 
 /*----- event listeners -----*/
-newGameButton.addEventListener('click', () => new Game('Alex').startGame())
+newGameButton.addEventListener('click', () => {
+  game = new Game('Alex')
+  game.startGame()
+})
+
+mainBoard.addEventListener('click', event => {
+  console.log(event.target.dataset.position)
+})
+
+shipCenter.addEventListener('click', event => {
+  console.log(event.target.dataset.classification)
+})
 
 /*----- functions -----*/
 class Game {
@@ -22,6 +37,7 @@ class Game {
       new Player()
     ]
     this.currentPlayer = 0
+    this.isPlacing = true
   }
 
   startGame = () => {
@@ -31,7 +47,26 @@ class Game {
     
     mainPlayer = this.players[0]
     mainPlayer.board.displayBoard(mainBoard)
+
+    mainBoard.classList.remove('hidden')
+    sideBoard.classList.remove('hidden')
+    shipCenter.classList.remove('hidden')
+    finishPlacementButton.classList.remove('hidden')
+
+    this.showShipsToPlace()
     console.log(this)
+  }
+
+  showShipsToPlace () {
+    mainPlayer.ships.forEach(ship => {
+      const newShip = document.createElement('div')
+      newShip.classList.add('ship')
+      newShip.style.width = `${ship.size * 40}px`
+
+      newShip.dataset.classification = ship.name
+
+      shipCenter.appendChild(newShip)
+    })
   }
 }
 
@@ -99,9 +134,9 @@ class Board {
     boardEl.style.gridTemplateRows = templateRows
     boardEl.style.gridTemplateColumns = templateColumns
 
-    boardEl.addEventListener('click', (event) =>
-      console.log(event.target.dataset.position)
-    )
+    // boardEl.addEventListener('click', (event) =>
+    //   console.log(event.target.dataset.position)
+    // )
   }
 }
 
