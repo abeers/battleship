@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: aqua;
+  background-color: green;
 }
 
 main {
@@ -30,7 +30,7 @@ main {
 }
 
 .ship {
-  background-color: blue;
+  background-color: black;
   height: 40px;
   margin: 10px;
 }
