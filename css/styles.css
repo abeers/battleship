@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: blue;
+  background-color: fuchsia;
 }
 
 main {
@@ -18,7 +18,7 @@ main {
 }
 
 .board-space {
-  border: 1px solid white;
+  border: 1px solid yellowgreen;
 }
 
 .hidden {
